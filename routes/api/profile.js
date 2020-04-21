@@ -39,7 +39,7 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       //if there are errors
-      return res.status(400).json({ errors: errors.array });
+      return res.status(400).json({ errors: errors.array() });
     }
     const {
       company,
