@@ -9,11 +9,15 @@ import {
   LOGOUT
 } from './types';
 import { setAlert } from './alert';
+import setAuthToken from '../utils/setAuthToken';
 
 //Load User
 export const loadUser = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/auth');
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
 
     dispatch({
       type: USER_LOADED,
