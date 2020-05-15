@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addEducation } from '../../actions/profile';
+import React, { useState } from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { addEducation } from '../../actions/profile'
 
 const AddEducation = ({ addEducation, history }) => {
   const [formData, setFormData] = useState({
@@ -13,9 +13,9 @@ const AddEducation = ({ addEducation, history }) => {
     to: '',
     current: false,
     description: ''
-  });
+  })
 
-  const [toDateDisabled, toggleDisabled] = useState(false);
+  const [toDateDisabled, toggleDisabled] = useState(false)
   const {
     school,
     degree,
@@ -24,16 +24,16 @@ const AddEducation = ({ addEducation, history }) => {
     to,
     current,
     description
-  } = formData;
+  } = formData
 
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    addEducation(formData, history);
-  };
+    e.preventDefault()
+    addEducation(formData, history)
+  }
   return (
     <>
       <h1 className='large text-primary'>Add Your Education</h1>
@@ -45,7 +45,7 @@ const AddEducation = ({ addEducation, history }) => {
       <form
         className='form'
         onSubmit={(e) => {
-          onSubmit(e);
+          onSubmit(e)
         }}
       >
         <div className='form-group'>
@@ -93,7 +93,10 @@ const AddEducation = ({ addEducation, history }) => {
               name='current'
               checked={current}
               value={current}
-              onChange={(e) => onChange(e)}
+              onChange={(e) => {
+                setFormData({ ...formData, current: !current })
+                toggleDisabled(!toDateDisabled)
+              }}
             />{' '}
             Current School or Bootcamp
           </p>
@@ -105,6 +108,7 @@ const AddEducation = ({ addEducation, history }) => {
             name='to'
             value={to}
             onChange={(e) => onChange(e)}
+            disabled={toDateDisabled ? 'disabled' : ''}
           />
         </div>
         <div className='form-group'>
@@ -123,11 +127,11 @@ const AddEducation = ({ addEducation, history }) => {
         </Link>
       </form>
     </>
-  );
-};
+  )
+}
 
 AddEducation.propTypes = {
   addEducation: PropTypes.func.isRequired
-};
+}
 
-export default connect(null, { addEducation })(withRouter(AddEducation));
+export default connect(null, { addEducation })(withRouter(AddEducation))
